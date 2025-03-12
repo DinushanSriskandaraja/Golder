@@ -24,8 +24,8 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-  try {
-    db.get('SELECT * FROM users WHERE email = ?', [email], async (err, row) => {
+  db.get('SELECT * FROM users WHERE email = ?', [email], async (err, row) => {
+    try {
       if (err) return res.status(500).send('Database error');
       if (!row) return res.status(401).send('Invalid email or password');
       
@@ -34,8 +34,8 @@ exports.login = async (req, res) => {
       
       const token = jwt.sign({ id: row.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
       res.json({ token });
-    });
-  } catch (error) {
-    res.status(500).send('Server error');
-  }
+    } catch (error) {
+      res.status(500).send('Server error');
+    }
+  });
 };

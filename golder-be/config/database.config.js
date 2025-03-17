@@ -48,8 +48,20 @@ db.serialize(() => {
     CREATE TABLE IF NOT EXISTS gold_prices (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       date INTEGER,
-      price REAL
+      price_LKR REAL,
+      exchange_rate REAL
     )
+  `);
+  // db.run(`DROP TABLE IF EXISTS exchange_rate`, (err) => {
+  //   if (err) console.error('Error dropping table:', err);
+  //   else console.log('Dropped exchange_rate table');
+  // }); 
+  db.run(`
+    CREATE TABLE IF NOT EXISTS exchange_rate (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date INTEGER,
+    rate REAL
+  )
   `);
 });
 

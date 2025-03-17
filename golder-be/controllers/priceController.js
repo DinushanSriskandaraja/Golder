@@ -25,7 +25,38 @@ exports.getCurrentPrice = (req, res) => {
     }
   );
 };
+// Add a new exchange rate
+exports.addExchangeRate = (req, res) => {
+  const { rate } = req.body;
+  if (!rate || rate <= 0) return res.status(400).send('Invalid exchange rate');
 
+  db.run(
+    'INSERT INTO exchange_rate (date, rate) VALUES (?, ?)',
+    [Date.now(), rate],
+    (err) => {
+      if (err) {
+        console.error('Database error in addExchangeRate:', err.message); // Log the error
+        return res.status(500).send('Database error');
+      }
+      res.status(201).json({ 
+        message: 'Exchange rate added', 
+        exchange_rate: rate 
+      });
+    }
+  );
+};
+
+// View the current exchange rate
+exports.getCurrentExchangeRate = (req, res) => {
+  db.get(
+    'SELECT rate FROM exchange_rate ORDER BY date DESC LIMIT 1',
+    (err, row) => {
+      if (err) return res.status(500).send('Database error');
+      if (!row) return res.status(404).send('No exchange rate data available');
+      res.json({ exchange_rate: row.rate });
+    }
+  );
+};
 exports.getPriceHistory = (req, res) => {
   const { period = '1week' } = req.query; // Options: 1week, 1month, 1year, 5years
   let days;

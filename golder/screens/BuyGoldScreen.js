@@ -18,11 +18,11 @@ const BuyGoldScreen = () => {
   
   const [isByWeight, setIsByWeight] = useState(true);
   const [inputValue, setInputValue] = useState('');
-  const [goldPrice, setGoldPrice] = useState(1850.25); // USD per ounce
+  const [goldPrice, setGoldPrice] = useState(1850.25);
   const [total, setTotal] = useState(0);
 
-  const weightOptions = ['0.5', '1', '2', '5']; // oz
-  const moneyOptions = ['100', '500', '1000', '5000']; // USD
+  const weightOptions = ['0.5', '1', '2', '5'];
+  const moneyOptions = ['100', '500', '1000', '5000'];
 
   useEffect(() => {
     calculateTotal();
@@ -58,8 +58,8 @@ const BuyGoldScreen = () => {
       style={[styles.presetButton, { backgroundColor: theme.card }]}
       onPress={() => handlePresetSelect(item)}
     >
-      <Text style={[styles.presetText, { color: theme.text }]}>
-        {isByWeight ? `${item} oz` : `$${item}`}
+      <Text style={[styles.presetText, { color: theme.text }]}> 
+        {isByWeight ? `${item} oz` : `$${item}`} 
       </Text>
     </TouchableOpacity>
   );
@@ -74,25 +74,19 @@ const BuyGoldScreen = () => {
           style={[styles.toggleButton, isByWeight && styles.activeToggle, { backgroundColor: isByWeight ? theme.button : theme.card }]}
           onPress={() => { setIsByWeight(true); setInputValue(''); }}
         >
-          <Text style={[styles.toggleText, { color: isByWeight ? theme.buttonText : theme.text }]}>
-            By Weight
-          </Text>
+          <Text style={[styles.toggleText, { color: isByWeight ? theme.buttonText : theme.text }]}>By Weight</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.toggleButton, !isByWeight && styles.activeToggle, { backgroundColor: !isByWeight ? theme.button : theme.card }]}
           onPress={() => { setIsByWeight(false); setInputValue(''); }}
         >
-          <Text style={[styles.toggleText, { color: !isByWeight ? theme.buttonText : theme.text }]}>
-            By Money
-          </Text>
+          <Text style={[styles.toggleText, { color: !isByWeight ? theme.buttonText : theme.text }]}>By Money</Text>
         </TouchableOpacity>
       </View>
 
       {/* Input */}
       <View style={styles.inputContainer}>
-        <Text style={[styles.label, { color: theme.text }]}>
-          {isByWeight ? 'Weight (oz)' : 'Amount (USD)'}
-        </Text>
+        <Text style={[styles.label, { color: theme.text }]}> {isByWeight ? 'Weight (oz)' : 'Amount (USD)'} </Text>
         <TextInput
           style={[styles.input, { borderColor: theme.text, color: theme.text }]}
           value={inputValue}
@@ -110,22 +104,18 @@ const BuyGoldScreen = () => {
         keyExtractor={(item) => item}
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.presetList} // Updated to use contentContainerStyle
+        contentContainerStyle={styles.presetList}
       />
 
       {/* Total and Buy Button */}
       <View style={styles.totalContainer}>
-        <Text style={[styles.totalText, { color: theme.text }]}>
-          Total: ${total.toFixed(2)}
-        </Text>
+        <Text style={[styles.totalText, { color: theme.text }]}>Total: ${total.toFixed(2)}</Text>
         <TouchableOpacity
           style={[styles.buyButton, { backgroundColor: theme.button }]}
           onPress={handleBuy}
           disabled={!inputValue || total <= 0}
         >
-          <Text style={[styles.buyButtonText, { color: theme.buttonText }]}>
-            Buy Now
-          </Text>
+          <Text style={[styles.buyButtonText, { color: theme.buttonText }]}>Buy Now</Text>
         </TouchableOpacity>
       </View>
     </LinearGradient>
@@ -139,74 +129,68 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 25,
+    marginBottom: 20,
   },
   toggleContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 25,
+    marginBottom: 20,
   },
   toggleButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 25,
     borderRadius: 20,
-    marginHorizontal: 5,
+    marginHorizontal: 8,
   },
   activeToggle: {
-    elevation: 5,
-  },
-  toggleText: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    elevation: 4,
   },
   inputContainer: {
-    marginBottom: 25,
+    marginBottom: 20,
   },
   label: {
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 5,
   },
   input: {
     borderWidth: 1,
-    padding: 10,
-    borderRadius: 5,
-    fontSize: 16,
+    padding: 12,
+    borderRadius: 8,
+    fontSize: 18,
   },
   presetList: {
-    paddingHorizontal: 20, // Equal padding on both sides
-    justifyContent: 'center', // Center the buttons horizontally
-    // maxHeight:50
-    // marginBottom: 25,
+    paddingVertical: 10,
+    alignItems: 'center',
   },
   presetButton: {
-    paddingVertical: 6, // Reduced height from 10 to 6
-    paddingHorizontal: 15, // Consistent horizontal padding
-    borderRadius: 8, // Slightly smaller radius for compactness
-    marginRight: 10, // Space between buttons
-    elevation: 2,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    borderRadius: 25,
+    marginHorizontal: 6,
   },
   presetText: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   totalContainer: {
     alignItems: 'center',
+    marginTop: 20,
   },
   totalText: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 20,
   },
   buyButton: {
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 10,
+    paddingVertical: 14,
+    paddingHorizontal: 40,
+    borderRadius: 12,
   },
   buyButtonText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
   },
 });

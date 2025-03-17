@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
   },
   chartContainer: {
-    paddingTop: 40,
+    // paddingTop: 40,
     alignItems: 'center',
   },
   graph: {

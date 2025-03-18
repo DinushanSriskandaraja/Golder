@@ -5,22 +5,32 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors } from '../../constants/Colors';
 import { useColorScheme } from 'react-native';
-
+import { login } from '@/services/authService';
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const colorScheme = useColorScheme() || 'light';
   const theme = Colors[colorScheme];
 
-  const login = async () => {
+  // const login = async () => {
+  //   try {
+  //     const response = await axios.post('http://192.168.8.105:5000/auth/login', { email, password }); // Replace with your IP
+  //     console.log('Token:', response.data.token);
+  //     await AsyncStorage.setItem('token', response.data.token);
+  //     navigation.replace('Main');
+  //   } catch (error) {
+  //     console.error('Login error:', error.message);
+  //     alert('Login failed—check credentials or server');
+  //   }
+  // };
+  const handleLogin = async () => {
     try {
-      // const response = await axios.post('http://192.168.8.105:5000/auth/login', { email, password }); // Replace with your IP
-      // console.log('Token:', response.data.token);
-      // await AsyncStorage.setItem('token', response.data.token);
+      const response = await login({ email, password });
+
       navigation.replace('Main');
+  setMessage(`Welcome, ${response.email}!`);
     } catch (error) {
-      console.error('Login error:', error.message);
-      alert('Login failed—check credentials or server');
+      setMessage(error || 'Login failed');
     }
   };
 
@@ -65,7 +75,7 @@ export default function LoginScreen({ navigation }) {
         />
         <Button
           mode="contained"
-          onPress={login}
+          onPress={handleLogin}
           style={[styles.button, { backgroundColor: theme.button }]}
           labelStyle={{ color: theme.buttonText }}
         >

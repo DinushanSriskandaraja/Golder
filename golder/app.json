@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "golder",
+    "jsEngine": "hermes",
     "slug": "golder",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,8 +23,8 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "extra":{
-        "URI":"http://192.168.8.105:5000"
+    "extra": {
+      "URI": "http://192.168.8.103:5000"
     },
     "plugins": [
       "expo-router",
@@ -38,7 +39,8 @@
       ]
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "bridgeless": false
     }
   }
 }
